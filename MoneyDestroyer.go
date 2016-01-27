@@ -4,15 +4,15 @@ type MoneyDestroyer struct {
 }
 
 func (this MoneyDestroyer) ConsumeMoney(from MoneyGiver, m Money) (err error) {
-	err, t := from.giveTransaction(m)
+	err, t := from.GiveTransaction(m)
 	if nil != err {
 		return
 	}
-	this.receiveTransaction(t)
+	this.ReceiveTransaction(t)
 
 	return
 }
 
-func (MoneyDestroyer) receiveTransaction(*transaction) {
+func (MoneyDestroyer) ReceiveTransaction(*transaction) {
 
 }

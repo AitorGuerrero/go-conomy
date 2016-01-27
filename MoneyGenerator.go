@@ -3,10 +3,10 @@ package goConomy
 type MoneyGenerator struct {}
 
 func (this MoneyGenerator) GenerateMoney(receiver MoneyReceiver, amount Money) {
-	_, t := this.giveTransaction(amount)
-	receiver.receiveTransaction(t)
+	_, t := this.GiveTransaction(amount)
+	receiver.ReceiveTransaction(t)
 }
 
-func (MoneyGenerator) giveTransaction(amount Money) (error, *transaction) {
+func (MoneyGenerator) GiveTransaction(amount Money) (error, *transaction) {
 	return nil, &transaction{amount}
 }
