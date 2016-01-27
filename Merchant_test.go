@@ -5,7 +5,7 @@ import t "testing"
 func TestGivenAMerchantWheAskingForMoneyButHasNotEnoughMoneyShouldReturnError(t *t.T) {
 	receiver := MoneyDestroyer{}
 	merchant := Merchant{}
-	merchant.ReceiveTransaction(&transaction{Money(10)})
+	merchant.receiveTransaction(&transaction{Money(10)})
 	err := merchant.GiveMoneyTo(Money(15), receiver)
 	if nil == err {
 		t.Error("Should return error")
@@ -21,7 +21,7 @@ func TestGivenAMerchantAskingForMoneyShouldReduceHisTotal(t *t.T) {
 	expectedFinalTotal := Money(8)
 	receiver := MoneyDestroyer{}
 	merchant := Merchant{}
-	merchant.ReceiveTransaction(&transaction{initialTotal})
+	merchant.receiveTransaction(&transaction{initialTotal})
 	err := merchant.GiveMoneyTo(transactionAmount, receiver)
 	if nil != err {
 		t.Error(err)
@@ -34,7 +34,7 @@ func TestGivenAMerchantAskingForMoneyShouldReduceHisTotal(t *t.T) {
 func TestGivenAMerchantWithNotEnoughMoneyWhenAskedForEnoughMoneyShouldReturnFalse(t *t.T) {
 	initialTotal := Money(5)
 	merchant := Merchant{}
-	merchant.ReceiveTransaction(&transaction{initialTotal})
+	merchant.receiveTransaction(&transaction{initialTotal})
 	hasEnoughMoney := merchant.HasEnoughMoney(Money(10))
 	if false != hasEnoughMoney {
 		t.Error("Should return false")
@@ -44,7 +44,7 @@ func TestGivenAMerchantWithNotEnoughMoneyWhenAskedForEnoughMoneyShouldReturnFals
 func TestGivenAMerchantWithEnoughMoneyWhenAskedForEnoughMoneyShouldReturntrue(t *t.T) {
 	initialTotal := Money(13)
 	merchant := Merchant{}
-	merchant.ReceiveTransaction(&transaction{initialTotal})
+	merchant.receiveTransaction(&transaction{initialTotal})
 	hasEnoughMoney := merchant.HasEnoughMoney(Money(10))
 	if true != hasEnoughMoney {
 		t.Error("Should return true")

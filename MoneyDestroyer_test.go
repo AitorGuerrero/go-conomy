@@ -5,7 +5,7 @@ import t "testing"
 func TestGivenAMoneyDestroyerWhenGiverHaveNotEnoguhMoneyShouldReturnError(t *t.T) {
 	destroyer := MoneyDestroyer{}
 	giver := Merchant{}
-	giver.ReceiveTransaction(&transaction{Money(5)})
+	giver.receiveTransaction(&transaction{Money(5)})
 	err := destroyer.ConsumeMoney(&giver, Money(10))
 	if nil == err {
 		t.Error("Should return error")
@@ -21,7 +21,7 @@ func TestGivenAMoneyDestroyerWhenGiverHaveNotEnoguhMoneyShouldReturnError(t *t.T
 func TestGivenAMoneyDestroyerAskingToGetMoneyShouldGetMoney(t *t.T) {
 	destroyer := MoneyDestroyer{}
 	giver := Merchant{}
-	giver.ReceiveTransaction(&transaction{Money(13)})
+	giver.receiveTransaction(&transaction{Money(13)})
 	destroyer.ConsumeMoney(&giver, Money(5))
 	if giver.wallet.totalAmount() != Money(8) {
 		t.Error("Should decrease giver total")

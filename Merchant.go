@@ -1,11 +1,12 @@
 package goConomy
 
 type MoneyReceiver interface {
-	ReceiveTransaction(*transaction)
+	receiveTransaction(*transaction)
 }
 
 type MoneyGiver interface {
-	GiveTransaction(Money) (error, *transaction)
+	GiveMoneyTo(amount Money, receiver MoneyReceiver) (err error)
+	giveTransaction(Money) (error, *transaction)
 }
 
 type Merchant struct {
@@ -13,11 +14,11 @@ type Merchant struct {
 }
 
 func (this *Merchant) GiveMoneyTo(amount Money, receiver MoneyReceiver) (err error) {
-	err, t := this.GiveTransaction(amount)
+	err, t := this.giveTransaction(amount)
 	if (nil != err) {
 		return;
 	}
-	receiver.ReceiveTransaction(t)
+	receiver.receiveTransaction(t)
 
 	return
 }
@@ -26,11 +27,11 @@ func (this Merchant) HasEnoughMoney(m Money) bool {
 	return this.wallet.totalAmount() >= m
 }
 
-func (this *Merchant) GiveTransaction(amount Money) (err error, t *transaction) {
+func (this *Merchant) giveTransaction(amount Money) (err error, t *transaction) {
 	err, t = this.wallet.generateTransaction(amount)
 	return
 }
 
-func (this *Merchant) ReceiveTransaction(t *transaction) {
+func (this *Merchant) receiveTransaction(t *transaction) {
 	this.wallet.receiveTransaction(t)
 }
