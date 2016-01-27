@@ -1,20 +1,18 @@
 package goConomy
 
-type moneyReceiver interface {
+type MoneyReceiver interface {
 	receiveTransaction(*transaction)
 }
 
-type moneyGiver interface {
+type MoneyGiver interface {
 	giveTransaction(Money) (error, *transaction)
 }
 
 type Merchant struct {
-	moneyReceiver
-	moneyGiver
 	wallet wallet
 }
 
-func (this *Merchant) GiveMoneyTo(amount Money, receiver moneyReceiver) (err error) {
+func (this *Merchant) GiveMoneyTo(amount Money, receiver MoneyReceiver) (err error) {
 	err, t := this.giveTransaction(amount)
 	if (nil != err) {
 		return;

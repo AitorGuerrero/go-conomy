@@ -1,10 +1,9 @@
 package goConomy
 
 type MoneyDestroyer struct {
-	moneyReceiver
 }
 
-func (this MoneyDestroyer) ConsumeMoney(from moneyGiver, m Money) (err error) {
+func (this MoneyDestroyer) ConsumeMoney(from MoneyGiver, m Money) (err error) {
 	err, t := from.giveTransaction(m)
 	if nil != err {
 		return
