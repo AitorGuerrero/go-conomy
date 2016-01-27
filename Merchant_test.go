@@ -30,3 +30,23 @@ func TestGivenAMerchantAskingForMoneyShouldReduceHisTotal(t *t.T) {
 		t.Errorf("The total should be %v. Is %v", expectedFinalTotal, merchant.wallet.totalAmount())
 	}
 }
+
+func TestGivenAMerchantWithNotEnoughMoneyWhenAskedForEnoughMoneyShouldReturnFalse(t *t.T) {
+	initialTotal := Money(5)
+	merchant := Merchant{}
+	merchant.receiveTransaction(&transaction{initialTotal})
+	hasEnoughMoney := merchant.HasEnoughMoney(Money(10))
+	if false != hasEnoughMoney {
+		t.Error("Should return false")
+	}
+}
+
+func TestGivenAMerchantWithEnoughMoneyWhenAskedForEnoughMoneyShouldReturntrue(t *t.T) {
+	initialTotal := Money(13)
+	merchant := Merchant{}
+	merchant.receiveTransaction(&transaction{initialTotal})
+	hasEnoughMoney := merchant.HasEnoughMoney(Money(10))
+	if true != hasEnoughMoney {
+		t.Error("Should return true")
+	}
+}

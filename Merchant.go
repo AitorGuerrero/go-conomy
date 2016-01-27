@@ -24,6 +24,10 @@ func (this *Merchant) GiveMoneyTo(amount Money, receiver moneyReceiver) (err err
 	return
 }
 
+func (this Merchant) HasEnoughMoney(m Money) bool {
+	return this.wallet.totalAmount() >= m
+}
+
 func (this *Merchant) giveTransaction(amount Money) (err error, t *transaction) {
 	err, t = this.wallet.generateTransaction(amount)
 	return
